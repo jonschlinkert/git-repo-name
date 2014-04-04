@@ -23,5 +23,3 @@ var remoteOriginURL = origin.url().replace(/\.git$/, '');
 module.exports = (function() {
   return url.parse(remoteOriginURL).path.split('/')[0];
 })();
-
-console.log(module.exports)
