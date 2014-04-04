@@ -1,0 +1,44 @@
+{
+  "name": "git-repo-name",
+  "description": "Get the repository name from the git remote origin URL.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/git-repo-name",
+  "author": {
+    "name": "Jon Schlinkert",
+    "url": "http://github.com/https://github.com/jonschlinkert/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonschlinkert/git-repo-name.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/git-repo-name/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jonschlinkert/git-repo-name/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [
+    "git",
+    "gh",
+    "git repo",
+    "repo name",
+    "repository",
+    "repo"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha -R test"
+  },
+  "devDependencies": {
+    "verb": "~0.2.0"
+  },
+  "dependencies": {
+    "remote-origin-url": "~0.2.1"
+  }
+}
