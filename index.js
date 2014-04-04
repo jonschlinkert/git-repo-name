@@ -7,13 +7,7 @@
 
 const url = require('url');
 const origin = require('remote-origin-url');
-
-
-/**
- * Get the remote origin url for a local git repository
- */
-
-var remoteOriginURL = origin.url().replace(/\.git$/, '');
+const gitUrl = require('github-url-from-git');
 
 
 /**
@@ -21,5 +15,5 @@ var remoteOriginURL = origin.url().replace(/\.git$/, '');
  */
 
 module.exports = (function() {
-  return url.parse(remoteOriginURL).path.split('/')[0];
+  return url.parse(gitUrl(origin.url())).path.split('/')[2];
 })();
