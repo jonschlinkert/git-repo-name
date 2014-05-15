@@ -1,5 +1,5 @@
 /*!
- * git-username <https://github.com/jonschlinkert/git-username>
+ * git-repo-name <https://github.com/jonschlinkert/git-repo-name>
  *
  * Copyright (c) 2014 Jon Schlinkert
  * Licensed under the MIT License (MIT)
