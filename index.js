@@ -7,8 +7,11 @@ var origin = require('remote-origin-url');
 module.exports = function repo(cwd, verbose) {
   var github = origin.sync(cwd);
 
-  if (!github && verbose) {
-    console.error(chalk.red('Can\'t find .git/config.'));
+  if (!github) {
+    if (verbose) {
+      console.error(chalk.red('Can\'t find .git/config.'));
+    }
+    return null;
   }
 
   var parsed = url.parse(github);
