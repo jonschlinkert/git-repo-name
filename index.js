@@ -1,24 +1,31 @@
-/*!
- * git-repo-name <https://github.com/jonschlinkert/git-repo-name>
- *
- * Copyright (c) 2014-2015, Jon Schlinkert.
- * Licensed under the MIT License.
- */
+'use strict';
 
-const url = require('url');
-const origin = require('remote-origin-url');
-const gitUrl = require('github-url-from-git');
-const log = require('verbalize');
+var url = require('url');
+var chalk = require('chalk');
+var origin = require('remote-origin-url');
 
-/**
- * Get the repository name from the GitHub remote origin URL
- */
+module.exports = function repo(cwd, verbose) {
+  var github = origin.sync(cwd);
 
-module.exports = (function() {
-  if (/\bhas not been defined\b/.test(origin.url())) {
-    log.warn("  Can't calculate git-repo-name. This probably means that");
-    log.warn("  a git remote origin has not been defined.");
-    return '';
+  if (!github && verbose) {
+    console.error(chalk.red('Can\'t find .git/config.'));
   }
-  return url.parse(gitUrl(origin.url())).path.split('/')[2];
-})();
+
+  var parsed = url.parse(github);
+  var res = '';
+
+  if (parsed && parsed.path) {
+    if (parsed.path.charAt(0) === '/') {
+      parsed.path = parsed.path.slice(1);
+    }
+    res = parsed.path.replace(/\.git$/, '');
+  }
+
+  var i = res.indexOf('/');
+
+  if (res.length && i !== -1) {
+    return res.slice(i + 1);
+  }
+
+  return null;
+};
