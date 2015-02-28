@@ -14,12 +14,25 @@
   "bugs": {
     "url": "https://github.com/jonschlinkert/git-repo-name/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jonschlinkert/git-repo-name/blob/master/LICENSE-MIT"
-    }
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/jonschlinkert/git-repo-name/blob/master/LICENSE"
+  },
+  "files": [
+    "index.js"
   ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "github-url-from-git": "~1.1.1",
+    "remote-origin-url": "~0.2.1",
+    "verbalize": "^0.1.2"
+  },
   "keywords": [
     "git",
     "gh",
@@ -27,20 +40,5 @@
     "repo name",
     "repository",
     "repo"
-  ],
-  "main": "index.js",
-  "engines": {
-    "node": ">=0.8"
-  },
-  "scripts": {
-    "test": "mocha -R test"
-  },
-  "devDependencies": {
-    "verb": "~0.2.0"
-  },
-  "dependencies": {
-    "github-url-from-git": "~1.1.1",
-    "remote-origin-url": "~0.2.1",
-    "verbalize": "^0.1.2"
-  }
+  ]
 }
