@@ -12,7 +12,7 @@ module.exports = function(dir, cb) {
 
   utils.origin(utils.cwd(dir), function (err, giturl) {
     if (err) return cb(err);
-    if(!giturl) return cb('cannot find ".git/config"');
+    if(!giturl) return cb(new Error('cannot find ".git/config"'));
     var parsed = url.parse(giturl);
     var segments = parsed.pathname.split(path.sep);
     cb(null, utils.filename(segments.pop()));

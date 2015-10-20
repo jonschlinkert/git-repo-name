@@ -35,7 +35,7 @@ describe('dir', function() {
   
   it('should return error .git folder don\'t exists', function(done) {
     repoName('docs', function (err, res) {
-      assert.equal(err, 'cannot find ".git/config"');
+      assert.equal(err.message, 'cannot find ".git/config"');
       done();
     });
   });
