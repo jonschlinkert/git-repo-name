@@ -19,3 +19,24 @@ describe('sync', function () {
     assert(repoName.sync() === 'git-repo-name');
   });
 });
+
+describe('dir', function() {
+  it('should work fine with dir argument in async mode', function(done) {
+    repoName('.', function (err, res) {
+      if (err) return done(err);
+      assert(repoName.sync() === 'git-repo-name');
+      done();
+    });
+  });
+  
+  it('should work fine with dir argument in sync mode', function() {
+    assert(repoName.sync('.') === 'git-repo-name');
+  });
+  
+  it('should return error .git folder don\'t exists', function(done) {
+    repoName('docs', function (err, res) {
+      assert.equal(err, 'cannot find ".git/config"');
+      done();
+    });
+  });
+});
