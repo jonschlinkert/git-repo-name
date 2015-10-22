@@ -1,12 +1,9 @@
 {
   "name": "git-repo-name",
   "description": "Get the repository name from the git remote origin URL.",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "homepage": "https://github.com/jonschlinkert/git-repo-name",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "http://github.com/https://github.com/jonschlinkert/"
-  },
+  "author": "Jon Schlinkert (http://github.com/jonschlinkert)",
   "repository": "jonschlinkert/git-repo-name",
   "bugs": {
     "url": "https://github.com/jonschlinkert/git-repo-name/issues"
@@ -40,5 +37,13 @@
     "repo name",
     "repository",
     "repo"
-  ]
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "git-user-email",
+        "git-username"
+      ]
+    }
+  }
 }
