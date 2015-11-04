@@ -1,7 +1,7 @@
 {
   "name": "git-repo-name",
   "description": "Get the repository name from the git remote origin URL.",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "homepage": "https://github.com/jonschlinkert/git-repo-name",
   "author": "Jon Schlinkert (http://github.com/jonschlinkert)",
   "repository": "jonschlinkert/git-repo-name",
@@ -21,7 +21,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "ansi-red": "^0.1.1",
     "cwd": "^0.8.4",
     "file-name": "^0.1.0",
     "lazy-cache": "^0.2.3",
