@@ -26,7 +26,6 @@ require = utils;
 
 require('cwd');
 require('file-name', 'filename');
-require('ansi-red', 'red');
 require('remote-origin-url', 'origin');
 
 /**
