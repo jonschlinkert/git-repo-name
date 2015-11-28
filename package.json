@@ -21,9 +21,9 @@
     "test": "mocha"
   },
   "dependencies": {
-    "cwd": "^0.8.4",
+    "cwd": "^0.9.0",
     "file-name": "^0.1.0",
-    "lazy-cache": "^0.2.3",
+    "lazy-cache": "^0.2.4",
     "remote-origin-url": "^0.4.0"
   },
   "devDependencies": {
