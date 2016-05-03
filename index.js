@@ -4,25 +4,34 @@ var url = require('url');
 var path = require('path');
 var utils = require('./utils');
 
-module.exports = function(dir, cb) {
-  if (typeof dir === 'function') {
-    cb = dir;
-    dir = '';
+module.exports = function(cwd, cb) {
+  if (typeof cwd === 'function') {
+    cb = cwd;
+    cwd = '.';
   }
 
-  utils.origin(utils.cwd(dir), function (err, giturl) {
-    if (err) return cb(err);
-    if(!giturl) {
-      return cb(new Error('cannot find ".git/config"'));
+  var gitPath = path.resolve(utils.cwd(cwd), '.git/config');
+
+  utils.origin(gitPath, function(err, giturl) {
+    if (err) {
+      cb(err);
+      return;
     }
+
+    if(!giturl) {
+      cb(new Error('cannot find ".git/config"'));
+      return;
+    }
+
     var parsed = url.parse(giturl);
     var segments = parsed.pathname.split(path.sep);
     cb(null, utils.filename(segments.pop()));
   });
 };
 
-module.exports.sync = function(dir) {
-  var giturl = utils.origin.sync(utils.cwd(dir));
+module.exports.sync = function(cwd) {
+  var gitPath = path.resolve(utils.cwd(cwd), '.git/config');
+  var giturl = utils.origin.sync(gitPath);
   if (!giturl) {
     throw new Error('cannot find ".git/config"');
   }
