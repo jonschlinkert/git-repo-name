@@ -3,7 +3,6 @@
 const url = require('url');
 const path = require('path');
 const origin = require('remote-origin-url');
-const filename = require('file-name');
 
 const repo = (options, cb) => {
   if (typeof options === 'function') {
@@ -45,7 +44,8 @@ repo.promise = (options = {}) => {
 
       let parsed = url.parse(giturl);
       let segments = parsed.pathname.split(path.sep);
-      resolve(filename(segments.pop()));
+      let filepath = segments.pop();
+      resolve(stem(filepath));
     });
   });
 };
@@ -63,7 +63,11 @@ repo.sync = (options = {}) => {
   }
   let parsed = url.parse(giturl);
   let segments = parsed.pathname.split(path.sep);
-  return filename(segments.pop());
+  return stem(segments.pop());
 };
+
+function stem(filepath) {
+  return path.basename(filepath, path.extname(filepath));
+}
 
 module.exports = repo;
