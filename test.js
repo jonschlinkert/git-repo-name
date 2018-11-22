@@ -1,42 +1,46 @@
 'use strict';
 
 require('mocha');
-var assert = require('assert');
-var repoName = require('./');
+const assert = require('assert');
+const repoName = require('./');
 
-describe('async', function() {
-  it('should return the name from git config:', function(done) {
-    repoName(function(err, res) {
-      if (err) return done(err);
-      assert.equal(res, 'git-repo-name');
-      done();
+describe('git-repo-name', () => {
+  describe('async', () => {
+    it('should return a promise', async() => {
+      assert.equal(await repoName(), 'git-repo-name');
+    });
+
+    it('should take a callback', cb => {
+      repoName((err, res) => {
+        if (err) return cb(err);
+        assert.equal(res, 'git-repo-name');
+        cb();
+      });
+    });
+
+    it('should take cwd as a string', cb => {
+      repoName(process.cwd(), (err, res) => {
+        if (err) return cb(err);
+        assert.equal(repoName.sync(), 'git-repo-name');
+        cb();
+      });
+    });
+
+    it('should error when .git folder does not exist', cb => {
+      repoName('foo', (err, res) => {
+        assert.equal(err.message, 'cannot find ".git/config"');
+        cb();
+      });
     });
   });
-});
 
-describe('sync', function() {
-  it('should return the name from git config:', function() {
-    assert.equal(repoName.sync(), 'git-repo-name');
-  });
-});
-
-describe('dir', function() {
-  it('should work fine with dir argument in async mode', function(done) {
-    repoName('.', function(err, res) {
-      if (err) return done(err);
+  describe('sync', () => {
+    it('should return the name from git config:', () => {
       assert.equal(repoName.sync(), 'git-repo-name');
-      done();
     });
-  });
 
-  it('should work fine with dir argument in sync mode', function() {
-    assert.equal(repoName.sync('.'), 'git-repo-name');
-  });
-
-  it('should return error .git folder don\'t exists', function(done) {
-    repoName('docs', function(err, res) {
-      assert.equal(err.message, 'cannot find ".git/config"');
-      done();
+    it('should take cwd as a string', () => {
+      assert.equal(repoName.sync('.'), 'git-repo-name');
     });
   });
 });

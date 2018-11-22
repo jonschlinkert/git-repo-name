@@ -1,41 +1,69 @@
 'use strict';
 
-var url = require('url');
-var path = require('path');
-var utils = require('./utils');
+const url = require('url');
+const path = require('path');
+const origin = require('remote-origin-url');
+const filename = require('file-name');
 
-module.exports = function(cwd, cb) {
-  if (typeof cwd === 'function') {
-    cb = cwd;
-    cwd = '.';
+const repo = (options, cb) => {
+  if (typeof options === 'function') {
+    cb = options;
+    options = process.cwd();
   }
 
-  var gitPath = path.resolve(utils.cwd(cwd), '.git/config');
+  let promise = repo.promise(options);
 
-  utils.origin(gitPath, function(err, giturl) {
-    if (err) {
-      cb(err);
-      return;
-    }
+  if (typeof cb === 'function') {
+    promise.then(name => cb(null, name)).catch(cb);
+    return;
+  }
 
-    if(!giturl) {
-      cb(new Error('cannot find ".git/config"'));
-      return;
-    }
+  return promise;
+};
 
-    var parsed = url.parse(giturl);
-    var segments = parsed.pathname.split(path.sep);
-    cb(null, utils.filename(segments.pop()));
+repo.promise = (options = {}) => {
+  if (typeof options === 'string') {
+    options = { cwd: options };
+  }
+
+  let opts = { cwd: process.cwd(), ...options };
+  if (!opts.path) {
+    opts.path = path.resolve(opts.cwd, '.git/config');
+  }
+
+  return new Promise((resolve, reject) => {
+    origin(opts, (err, giturl) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      if (!giturl) {
+        reject(new Error('cannot find ".git/config"'));
+        return;
+      }
+
+      let parsed = url.parse(giturl);
+      let segments = parsed.pathname.split(path.sep);
+      resolve(filename(segments.pop()));
+    });
   });
 };
 
-module.exports.sync = function(cwd) {
-  var gitPath = path.resolve(utils.cwd(cwd), '.git/config');
-  var giturl = utils.origin.sync(gitPath);
+repo.sync = (options = {}) => {
+  if (typeof options === 'string') options = { cwd: options };
+  let opts = { cwd: process.cwd(), ...options };
+  if (!opts.path) {
+    opts.path = path.resolve(opts.cwd, '.git/config');
+  }
+
+  let giturl = origin.sync(opts);
   if (!giturl) {
     throw new Error('cannot find ".git/config"');
   }
-  var parsed = url.parse(giturl);
-  var segments = parsed.pathname.split(path.sep);
-  return utils.filename(segments.pop());
+  let parsed = url.parse(giturl);
+  let segments = parsed.pathname.split(path.sep);
+  return filename(segments.pop());
 };
+
+module.exports = repo;
