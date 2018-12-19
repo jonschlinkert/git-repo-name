@@ -1,7 +1,7 @@
 {
   "name": "git-repo-name",
   "description": "Get the repository name from the git remote origin URL.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/jonschlinkert/git-repo-name",
   "author": "Jon Schlinkert (http://github.com/jonschlinkert)",
   "repository": "jonschlinkert/git-repo-name",
@@ -20,7 +20,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "file-name": "^0.1.0",
     "remote-origin-url": "^2.0.0"
   },
   "devDependencies": {
@@ -36,12 +35,6 @@
     "repository"
   ],
   "verb": {
-    "related": {
-      "list": [
-        "git-user-email",
-        "git-username"
-      ]
-    },
     "toc": false,
     "layout": "default",
     "tasks": [
@@ -50,11 +43,14 @@
     "plugins": [
       "gulp-format-md"
     ],
+    "related": {
+      "list": [
+        "git-user-email",
+        "git-username"
+      ]
+    },
     "lint": {
       "reflinks": true
-    },
-    "reflinks": [
-      "verb"
-    ]
+    }
   }
 }
