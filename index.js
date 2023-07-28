@@ -67,7 +67,10 @@ repo.sync = (options = {}) => {
 };
 
 function stem(filepath) {
-  return path.basename(filepath, path.extname(filepath));
+  const ext = path.extname(filepath);
+  return ext === '.git'
+   ? path.basename(filepath, ext)
+   : path.basename(filepath);
 }
 
 module.exports = repo;
